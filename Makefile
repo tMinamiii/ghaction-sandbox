@@ -1,7 +1,7 @@
 export
 
 GOBIN := ${PWD}/bin
-PATH := $(GOBIN):\"$(PATH)\"
+PATH := $(GOBIN)
 SHELL := env PATH=$(PATH) bash
 
 check:
