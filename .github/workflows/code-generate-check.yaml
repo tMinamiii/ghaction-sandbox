@@ -11,13 +11,20 @@ jobs:
       - uses: EPMatt/reviewdog-action-prettier@v1
         with:
           github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need
-          # [github-pr-check,github-check,github-pr-review].
-          # More about reviewdog reporters at
-          # https://github.com/reviewdog/reviewdog#reporters
           reporter: github-pr-review
-          # Change reporter level if you need
-          # [info,warning,error].
-          # More about reviewdog reporter level at
-          # https://github.com/reviewdog/reviewdog#reporters
           level: warning
+          fail_on_error: true
+  staticcheck:
+    name: runner / staticcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
+      - uses: reviewdog/action-staticcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          filter_mode: nofilter
+          fail_on_error: true
