@@ -3,20 +3,21 @@ name: ci_test
 on: [pull_request]
 
 jobs:
-  code-generate-check:
+  prettier:
+    name: runner / prettier
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code 
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: EPMatt/reviewdog-action-prettier@v1
         with:
-          fetch-depth: 0
-      - name: mysqldef help
-        run: |
-          export PATH=$PATH:$(pwd)/bin
-          mysqldef --help
-      - name: Make check
-        shell: bash
-        run: |
-          result=$(make check)
-          echo ::set-output name=result::${result//$'\n'/'%0A'}
-        id: make_check
+          github_token: ${{ secrets.github_token }}
+          # Change reviewdog reporter if you need
+          # [github-pr-check,github-check,github-pr-review].
+          # More about reviewdog reporters at
+          # https://github.com/reviewdog/reviewdog#reporters
+          reporter: github-pr-review
+          # Change reporter level if you need
+          # [info,warning,error].
+          # More about reviewdog reporter level at
+          # https://github.com/reviewdog/reviewdog#reporters
+          level: warning
