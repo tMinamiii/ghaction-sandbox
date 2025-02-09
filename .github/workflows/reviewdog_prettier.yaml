@@ -1,0 +1,21 @@
+name: reviewdog
+
+on:
+  pull_request:
+    paths:
+      - '**/*.{ts, js, tsx, jsx, json, jsonc}'
+
+jobs:
+  prettier:
+    name: runner / prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: prettier
+        uses: EPMatt/reviewdog-action-prettier@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+          fail_level: error
