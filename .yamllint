@@ -7,3 +7,4 @@ yaml-files:
 rules:
   quoted-strings:
     quote-type: single
+    required: false

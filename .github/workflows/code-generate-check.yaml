@@ -48,6 +48,7 @@ jobs:
         with:
           files: |
             **/*.{yaml,yml}
+            **/.yamllint
       - name: yamllint
         uses: reviewdog/action-yamllint@v1
         with:
