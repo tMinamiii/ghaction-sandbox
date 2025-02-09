@@ -3,7 +3,8 @@ name: reviewdog
 on:
   pull_request:
     paths:
-      - '**/*.{yaml, yml}'
+      - '**.yaml'
+      - '**.yml'
 
 jobs:
   yamllint:

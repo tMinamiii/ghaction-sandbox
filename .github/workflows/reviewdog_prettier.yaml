@@ -3,7 +3,12 @@ name: reviewdog
 on:
   pull_request:
     paths:
-      - '**/*.{ts, js, tsx, jsx, json, jsonc}'
+      - '**.ts'
+      - '**.tsx'
+      - '**.js'
+      - '**.jsx'
+      - '**.json'
+      - '**.jsonc'
 
 jobs:
   prettier:
