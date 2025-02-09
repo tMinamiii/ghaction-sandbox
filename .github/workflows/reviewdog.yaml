@@ -14,17 +14,17 @@ jobs:
           reporter: github-pr-review
           level: warning
           fail_level: error
-  staticcheck:
-    name: runner / staticcheck
+  golangci-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: reviewdog/action-staticcheck@v1
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          filter_mode: nofilter
-          fail_level: error
+          fetch-depth: 0
+      - name: golangci-lint
+        uses: reviewdog/action-golangci-lint@v2
+        with:
+          golangci_lint_flags: '--disable-all --enable govet staticcheck'
   yamllint:
     name: runner / yamllint
     runs-on: ubuntu-latest
