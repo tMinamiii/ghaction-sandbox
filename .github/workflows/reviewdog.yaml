@@ -1,0 +1,56 @@
+name: reviewdog
+
+on: [pull_request]
+
+jobs:
+  prettier:
+    name: runner / prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: changed-ts-js-json-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*.{js,ts,jsx,tsx,json,jsonc}
+      - uses: EPMatt/reviewdog-action-prettier@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+          fail_level: error
+  staticcheck:
+    name: runner / staticcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: changed-go-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*.go
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+      - uses: reviewdog/action-staticcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          filter_mode: nofilter
+          fail_level: error
+  yamllint:
+    name: runner / yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: changed-go-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*.{yaml,yml}
+            **/.yamllint
+      - name: yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review # Change reporter.
