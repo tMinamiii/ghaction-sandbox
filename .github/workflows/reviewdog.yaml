@@ -24,7 +24,7 @@ jobs:
       - name: golangci-lint
         uses: reviewdog/action-golangci-lint@v2
         with:
-          golangci_lint_flags: '--disable-all --enable govet staticcheck'
+          golangci_lint_flags: '--disable-all -E govet -E staticcheck'
   yamllint:
     name: runner / yamllint
     runs-on: ubuntu-latest
