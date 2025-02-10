@@ -18,7 +18,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: prettier
-        uses: EPMatt/reviewdog-action-prettier@v1
+        uses: tMinamiii/reviewdog-action-prettier@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
